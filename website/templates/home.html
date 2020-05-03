@@ -44,7 +44,11 @@
             <br>
             <div class="list-group">
                 {% for goal in current_user.goals %}
-                <a href="{{ url_for('seeGoal', goal_id=goal.id) }}" class="list-group-item list-group-item-action list-group-item-light">{{ goal.description }}</a>
+                    {% if goal.completed %}
+                    <a href="{{ url_for('seeGoal', goal_id=goal.id) }}" class="list-group-item list-group-item-action list-group-item-success">{{ goal.description }}</a>
+                    {% else %}
+                    <a href="{{ url_for('seeGoal', goal_id=goal.id) }}" class="list-group-item list-group-item-action list-group-item-light">{{ goal.description }}</a>
+                    {% endif %}
                 {% endfor %}
             </div>
             <br>
