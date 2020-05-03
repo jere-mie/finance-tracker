@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="thin">View Goal</h1>
+<hr>
+<div class="separate">
+    {% if goal.completed %}
+    <h2 class="thin">Status: Completed</h2>
+    {% else %}
+    <h2 class="thin">Status: Incomplete</h2>
+    {% endif %}
+    <h4>Description</h4>
+    <hr>
+    <p>{{ goal.description }}</p>
+    <a class="btn btn-outline-success" href="{{ url_for('updateGoal', goal_id=goal.id) }}">Update</a>
+    <a class="btn btn-outline-danger" href="{{ url_for('deleteGoal', goal_id=goal.id) }}">Delete</a>    
+</div>
+<br><br><br>
+{% endblock %}

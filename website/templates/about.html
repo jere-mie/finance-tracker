@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="separate">
+    <h1 class="thin">About Us</h1>
+    <br><br><br>
+    <h5 class="thin">This application was created as a way to help people keep track of their personal finances.</h5>
+    <br>
+    <h5 class="thin">Users may register for an account anonymously (to ensure maximum privacy), fill in their monthly income, and log back in to keep track of their purchases, and see how they're doing for the month.</h5>    
+    <br>
+    {% if current_user.is_authenticated %}
+    <h5 class="thin">Looks like you're currently logged in,</h5>
+    <br>
+    <h6 class="thin">Go back to the <a href="{{ url_for('register') }}">home page</a> so you can get the most out of this app!</h6>
+    
+    {% else %}
+    <h5 class="thin">Looks like you aren't logged in yet,</h5>
+    <br>
+    <h6 class="thin">Make sure you <a href="{{ url_for('register') }}">register for an account</a> so you can get the most out of this app!</h6>
+    <h6 class="thin">Already have an account? <a href="{{ url_for('login') }}">Login</a> to get started</h6>
+    {% endif %}
+</div>
+{% endblock %}

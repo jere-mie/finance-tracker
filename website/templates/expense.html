@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="thin">View Expense</h1>
+<hr>
+<div class="separate">
+    <h2 class="thin">{{ expense.name }}</h2>
+    <h4>Price: ${{ expense.price }}</h6>
+    <h4>Description</h4>
+    <hr>
+    <p>{{ expense.description }}</p>
+    <a class="btn btn-outline-success" href="{{url_for('update', expense_id=expense.id)}}">Update</a>
+    <a class="btn btn-outline-danger" href="{{url_for('delete', expense_id=expense.id)}}">Delete</a>    
+</div>
+<br><br><br>
+{% endblock %}

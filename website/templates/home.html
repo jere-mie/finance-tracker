@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% if current_user.is_authenticated %}
+    <h1 class="thin">Welcome Back {{ current_user.username }}!</h1>
+    <hr>
+    <div class="row">
+        <div class="separate col-md-5">
+            <h2 class="thin">Overview:</h2>
+            <br>
+            <h5>Monthly Income: {{ current_user.income }}</h5>
+            <h5>Total Monthly Expenses: {{ total }}</h5>
+            <h5>Monthly Income remaining: {{ current_user.income - total }}</h5> 
+            <br>
+            <a href="{{ url_for('new') }}" class="btn btn-outline-success">Add Expense</a>    
+            <a href="{{ url_for('newGoal') }}" class="btn btn-outline-success">Add Goal</a>    
+        </div>
+        <div class="separate col-md-5">
+            <h2 class="thin">Financial Health</h2>
+            <br>
+            <h3 class="thin">Income Remaining:</h3>
+            <br>
+            <div class="progress" style="height: 50px">
+                <div class="progress-bar bg-{{ bg }}" role="progressbar" style="width: {{ remaining }}%" aria-valuenow="{{ remaining }}" aria-valuemin="0" aria-valuemax="100"><h5>{{ remaining }}%</h5></div>
+            </div>
+            <br><br>
+            <h5>Status: {{ status }}</h5>
+        </div>
+        {% if current_user.expenses %}
+        <div class="separate col-md-5">
+            <h2 class="thin">Here Are Your Current Monthly Expenses:</h2>
+            <br>
+            <div class="list-group">
+                {% for expense in current_user.expenses %}
+                <a href="{{ url_for('see', expense_id=expense.id) }}" class="list-group-item list-group-item-action list-group-item-light">${{ expense.price }}: {{ expense.name }}</a>
+                {% endfor %}
+            </div>
+            <br>
+            <a href="{{ url_for('new') }}" class="btn btn-outline-success">New Expense</a>    
+        </div>
+        {% endif %}
+        {% if current_user.goals %}
+        <div class="separate col-md-5">
+            <h2 class="thin">Here Are Your Current Financial Goals:</h2>
+            <br>
+            <div class="list-group">
+                {% for goal in current_user.goals %}
+                <a href="{{ url_for('seeGoal', goal_id=goal.id) }}" class="list-group-item list-group-item-action list-group-item-light">{{ goal.description }}</a>
+                {% endfor %}
+            </div>
+            <br>
+            <a href="{{ url_for('newGoal') }}" class="btn btn-outline-success">New Goal</a>    
+        </div>
+        {% endif %}
+        
+    </div>
+
+    {% else %}
+    <div class="separate">
+        <h1 class="thin">Welcome to the Easy-Breezy Financial Tracking App!</h1>
+        <hr>
+        <h4>Looks like you aren't registered yet...</h4>
+        <br>
+        <h5>Make sure you <a href="{{ url_for('register') }}">register for an account</a> so you can get the most out of this app!</h5>
+        <h5>Already have an account? <a href="{{ url_for('login') }}">Login</a> to get started</h5>
+        <br><br>
+        <h5>Not sure what this is? Check out our <a href="{{ url_for('about') }}">about</a> page</h5>
+    </div>
+    {% endif %}
+{% endblock %}
